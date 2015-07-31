@@ -1,0 +1,11 @@
+{
+  "name": "slacktionkit",
+  "version": "1.0.0",
+  "description": "ActionKit Slack integration",
+  "author": "Jin Ding",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.x.x",
+    "express": "^4.13.2"
+  }
+}
