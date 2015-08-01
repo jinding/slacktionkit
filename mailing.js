@@ -4,7 +4,7 @@ module.exports = function (req, res, next) {
 
   var mailingId = req.body.text;
 
-  if (req.body.token === 'Aj1sX74iobPZSkUMLBf8POMJ') { // only proceed if the token matches the one for CREDO Action
+  if (req.body.token === 'rIJlkyMcOrHdzi8liiwZXlg5') { // only proceed if the token matches the one for CREDO Action
     if (mailingId) {
       request({
           url: 'https://act.credoaction.com/rest/v1/report/run/mailings_one_line_stats_ids_slack/',
