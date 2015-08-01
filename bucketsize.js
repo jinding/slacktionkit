@@ -10,9 +10,8 @@ module.exports = function (req, res, next) {
         url: 'https://act.credoaction.com/rest/v1/report/run/list_issue_group_size_specific/',
         auth: { user: 'meteor', pass: 'dingbergalis' },
         qs: {
-  //            'query': "SELECT COUNT(*) FROM core_user_page_tags upt JOIN core_tag t ON t.id = upt.tag_id JOIN core_subscription s ON s.user_id = upt.user_id AND s.list_id = 1 WHERE t.name = {{ tag }}",
               'tag': bucket,
-              'cache_duration': '3600' 
+              'cache_duration': '86400' // set cache to 1 day
             },
         method: 'POST', //Specify the method
         headers: {
