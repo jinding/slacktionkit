@@ -32,40 +32,26 @@ module.exports = function (req, res, next) {
                 'actions': oneLineStats[7],
                 'ntl': oneLineStats[8]
               }
-              console.log(stats.date);
-              console.log(stats.sent);
-              console.log(stats.opens);
-              console.log(stats.clicks);
-              console.log(stats.unsubs_all);
-              console.log(stats.unsubs_bounce);
-              console.log(stats.unsubs_spam);
-              console.log(stats.actions);
-              console.log(stats.ntl);
               var openRate = 100*stats.opens/stats.sent;
               var cpo = 100*stats.clicks/stats.opens;
               var unsubRate = 100*stats.unsubs_all/stats.sent;
               var spamRate = 100*stats.unsubs_spam/stats.sent;
               var actionRate = 100*stats.actions/stats.sent;
+              var netNtl = stats.ntl-stats.unsubs_all;
               var netNtlPer1000Sent = 1000*(stats.ntl-stats.unsubs_all)/stats.sent;
 
-              console.log(openRate);
-              console.log(cpo);
-              console.log(unsubRate);
-              console.log(spamRate);
-              console.log(actionRate);
-              console.log(netNtlPer1000Sent);
-
-              var bot = 'Mailing stats for mailing ID ' + mailingId + ':\n' +
-                        'Date: ' + stats.date + '\n' +
+              var bot = 'Mailing stats for mailing ID ' + mailingId + ':\n' + 
+                        'Date: ' + stats.date.replace(/\"/g,'') + '\n' +
                         'Sent: ' + stats.sent + '\n' +
-                        'Opens: ' + stats.opens + ' (' + openRate.toPrecision(2) + '%)' + '\n' +
-                        'Clicks: ' + stats.clicks + ' (CPO ' + cpo.toPrecision(2) + '%)' + '\n' +
-                        'Unsubs (all): ' + stats.unsubs_all + ' (' + unsubRate.toPrecision(2) + '%)' + '\n' +
-                        'Spam: ' + stats.spam + ' (' + spamRate.toPrecision(2) + '%)' + '\n' +
-                        'Actions: ' + stats.actions + ' (' + actionRate.toPrecision(2) + '%)' + '\n' +
+                        'Opens: ' + stats.opens + ' (' + openRate.toFixed(2) + '%)' + '\n' +
+                        'Clicks: ' + stats.clicks + ' (CPO ' + cpo.toFixed(2) + '%)' + '\n' +
+                        'Unsubs (all): ' + stats.unsubs_all + ' (' + unsubRate.toFixed(2) + '%)' + '\n' +
+                        'Spam: ' + stats.unsubs_spam + ' (' + spamRate.toFixed(2) + '%)' + '\n' +
+                        'Actions: ' + stats.actions + ' (' + actionRate.toFixed(2) + '%)' + '\n' +
                         'NTL: ' + stats.ntl + '\n' +
-                        'Net NTL: ' + stats.ntl-stats.unsubs_all + ' (' + netNtlPer1000Sent.toPrecision(2) + 'per 1K sent)'
-                        ;
+                        'Net NTL: ' + netNtl + ' (' + netNtlPer1000Sent.toFixed(2) + ' per 1K sent)'
+                       ;
+              console.log(bot);
               return res.status(200).send(bot);
           } else if (response && response.statusCode) {
               console.log('error: ' + response.statusCode + ' ' + body);
