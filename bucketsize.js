@@ -19,11 +19,11 @@ module.exports = function (req, res, next) {
   }, function(error, response, body){
       if (response && response.statusCode && response.statusCode == 200) {
           console.log('no errors ' + response.statusCode + ' ' + body);
-          return(body);
-      } else {
+          return res.status(200).send(body);
+      } else if (response && response.statusCode) {
           console.log('error: ' + error + ' ' + body);
-          return('error: ' + error + ' ' + body);
-      }
+          return res.status(response.statusCode).send(body);
+      } else return res.status(400).send('undefined error');
   });
 
 }
