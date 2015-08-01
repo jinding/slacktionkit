@@ -19,7 +19,8 @@ module.exports = function (req, res, next) {
   }, function(error, response, body){
       if (response && response.statusCode && response.statusCode == 200) {
           console.log('no errors ' + response.statusCode + ' ' + body);
-          return res.status(200).send(body);
+          var bot = 'There are currently '+body.replace('[[','').replace(']]','')+' members tagged '+bucket;
+          return res.status(200).send(bot);
       } else if (response && response.statusCode) {
           console.log('error: ' + error + ' ' + body);
           return res.status(response.statusCode).send(body);
