@@ -22,17 +22,19 @@ module.exports = function (req, res, next) {
       }, function(error, response, body){
           if (response && response.statusCode && response.statusCode == 200) {
               console.log('no errors ' + response.statusCode + ' ' + body);
-              var oneLineStats = body.replace('[[','').replace(']]','').split(',');
+              var oneLineStats = body.replace('[[','').replace(']]','').split('\", \"');
               var stats = {
-                'date': oneLineStats[0],
-                'sent': oneLineStats[1],
-                'opens': oneLineStats[2],
-                'clicks': oneLineStats[3],
-                'unsubs_all': oneLineStats[4],
-                'unsubs_bounce': oneLineStats[5],
-                'unsubs_spam': oneLineStats[6],
-                'actions': oneLineStats[7],
-                'ntl': oneLineStats[8]
+                'date': oneLineStats[0].replace(/\"/g,''),
+                'subjectLine': oneLineStats[1],
+                'notes': oneLineStats[2],
+                'sent': oneLineStats[3].replace(/\"/g,''),
+                'opens': oneLineStats[4].replace(/\"/g,''),
+                'clicks': oneLineStats[5].replace(/\"/g,''),
+                'unsubs_all': oneLineStats[6].replace(/\"/g,''),
+                'unsubs_bounce': oneLineStats[7].replace(/\"/g,''),
+                'unsubs_spam': oneLineStats[8].replace(/\"/g,''),
+                'actions': oneLineStats[9].replace(/\"/g,''),
+                'ntl': oneLineStats[10].replace(/\"/g,'')
               }
               var openRate = 100*stats.opens/stats.sent;
               var cpo = 100*stats.clicks/stats.opens;
@@ -42,8 +44,10 @@ module.exports = function (req, res, next) {
               var netNtl = stats.ntl-stats.unsubs_all;
               var netNtlPer1000Sent = 1000*(stats.ntl-stats.unsubs_all)/stats.sent;
 
-              botPayload.text = 'Stats for mailing ID ' + mailingId + ':\n' + 
-                        'Sent on: ' + stats.date.replace(/\"/g,'') + '\n' +
+              var bot = 'Stats for mailing ID ' + mailingId + ':\n' + 
+                        'Sent on: ' + stats.date + '\n' +
+                        'Subject: ' + stats.subjectLine + '\n' +
+                        'Notes: ' + stats.notes + '\n' +
                         'Sent: ' + stats.sent + '\n' +
                         'Opens: ' + stats.opens + ' (' + openRate.toFixed(2) + '%)' + '\n' +
                         'Clicks: ' + stats.clicks + ' (CPO ' + cpo.toFixed(2) + '%)' + '\n' +
