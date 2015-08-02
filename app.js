@@ -4,6 +4,7 @@ var hellobot = require('./hellobot');
 var dicebot = require('./dicebot');
 var bucketsizebot = require('./bucketsize');
 var mailingbot = require('./mailing');
+var actionkitbot = require('./actionkit');
 
 var app = express();
 var port = process.env.PORT || 3000;
@@ -26,6 +27,9 @@ app.post('/bucket', bucketsizebot);
 
 // mailingbot
 app.post('/mailing', mailingbot);
+
+// acitonkitbog
+app.post('/actionkit', actionkitbot);
 
 // basic error handler
 app.use(function (err, req, res, next) {
