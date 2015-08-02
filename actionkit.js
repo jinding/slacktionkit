@@ -45,16 +45,16 @@ module.exports = function (req, res, next) {
               var netNtlPer1000Sent = 1000*(stats.ntl-stats.unsubs_all)/stats.sent;
 
               botPayload.text = 'Stats for mailing ID ' + mailingId + ': "*' + stats.subjectLine + '*"\n' + 
-                        stats.notes + '\n' +
-                        '*Sent on*: ' + stats.date + '\n' +
-                        'Sent: ' + stats.sent + '\n' +
-                        'Opens: ' + stats.opens + ' (' + openRate.toFixed(2) + '%)' + '\n' +
-                        'Clicks: ' + stats.clicks + ' (CPO ' + cpo.toFixed(2) + '%)' + '\n' +
-                        'Unsubs (all): ' + stats.unsubs_all + ' (' + unsubRate.toFixed(2) + '%)' + '\n' +
-                        'Spam: ' + stats.unsubs_spam + ' (' + spamRate.toFixed(2) + '%)' + '\n' +
-                        'Actions: ' + stats.actions + ' (' + actionRate.toFixed(2) + '%)' + '\n' +
-                        'NTL: ' + stats.ntl + '\n' +
-                        'Net NTL: ' + netNtl + ' (' + netNtlPer1000Sent.toFixed(2) + ' per 1K sent)'
+                        '_' + stats.notes + '_\n' +
+                        '*Date*: ' + stats.date + '\n' +
+                        '*Sent*: ' + stats.sent + '\n' +
+                        '*Opens*: ' + stats.opens + ' (' + openRate.toFixed(2) + '%)' + '\n' +
+                        '*Clicks*: ' + stats.clicks + ' (CPO ' + cpo.toFixed(2) + '%)' + '\n' +
+                        '*Unsubs (all)*: ' + stats.unsubs_all + ' (' + unsubRate.toFixed(2) + '%)' + '\n' +
+                        '*Spam*: ' + stats.unsubs_spam + ' (' + spamRate.toFixed(2) + '%)' + '\n' +
+                        '*Actions*: ' + stats.actions + ' (' + actionRate.toFixed(2) + '%)' + '\n' +
+                        '*NTL*: ' + stats.ntl + '\n' +
+                        '*Net NTL*: ' + netNtl + ' (' + netNtlPer1000Sent.toFixed(2) + ' per 1K sent)'
                        ;
               console.log(botPayload.text);
 
