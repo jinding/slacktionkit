@@ -1,6 +1,7 @@
+var request = require('request');
+var querystring = require('querystring');
+
 module.exports = function (req, res, next) {
-  var querystring = require('querystring');
-  var request = require('request');
 
   var mailingId = req.body.text;
   var botPayload = {};
