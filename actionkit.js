@@ -44,9 +44,9 @@ module.exports = function (req, res, next) {
               var netNtl = stats.ntl-stats.unsubs_all;
               var netNtlPer1000Sent = 1000*(stats.ntl-stats.unsubs_all)/stats.sent;
 
-              botPayload.text = 'Stats for mailing ID ' + mailingId + ': "' + stats.subjectLine + '"\n' + 
+              botPayload.text = 'Stats for mailing ID ' + mailingId + ': "*' + stats.subjectLine + '*"\n' + 
                         stats.notes + '\n' +
-                        'Sent on: ' + stats.date + '\n' +
+                        '*Sent on*: ' + stats.date + '\n' +
                         'Sent: ' + stats.sent + '\n' +
                         'Opens: ' + stats.opens + ' (' + openRate.toFixed(2) + '%)' + '\n' +
                         'Clicks: ' + stats.clicks + ' (CPO ' + cpo.toFixed(2) + '%)' + '\n' +
