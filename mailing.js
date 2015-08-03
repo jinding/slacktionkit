@@ -44,15 +44,13 @@ module.exports = function (req, res, next) {
 
               var bot = 'Stats for mailing ID ' + mailingId + ': "' + stats.subjectLine + '"\n' + 
                         stats.notes + '\n' +
-                        'Sent on: ' + stats.date + '\n' +
-                        'Sent: ' + stats.sent + '\n' +
-                        'Opens: ' + stats.opens + ' (' + openRate.toFixed(2) + '%)' + '\n' +
-                        'Clicks: ' + stats.clicks + ' (CPO ' + cpo.toFixed(2) + '%)' + '\n' +
-                        'Unsubs (all): ' + stats.unsubs_all + ' (' + unsubRate.toFixed(2) + '%)' + '\n' +
-                        'Spam: ' + stats.unsubs_spam + ' (' + spamRate.toFixed(2) + '%)' + '\n' +
-                        'Actions: ' + stats.actions + ' (' + actionRate.toFixed(2) + '%)' + '\n' +
-                        'NTL: ' + stats.ntl + '\n' +
-                        'Net NTL: ' + netNtl + ' (' + netNtlPer1000Sent.toFixed(2) + ' per 1K sent)'
+                        'Sent on: ' + stats.date + ' to ' + stats.sent + '\n' +
+                        'Open rate: ' + openRate.toFixed(2) + '%\n' +
+                        'CPO: ' + cpo.toFixed(2) + '%\n' +
+                        'Action rate: ' + actionRate.toFixed(2) + '%\n' +
+                        'Net NTL per 1K sent: ' + netNtlPer1000Sent.toFixed(2) + ' (' + netNtl + ' NTL)\n' +
+                        'Unsub rate: ' + unsubRate.toFixed(2) + '%\n' +
+                        'Spam rate: ' + spamRate.toFixed(2) + '%'
                        ;
               console.log(bot);
               return res.status(200).send(bot);
