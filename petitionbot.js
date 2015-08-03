@@ -26,7 +26,7 @@ module.exports = function (req, res, next) {
               console.log('no errors ' + response.statusCode + ' ' + body);
               var oneLineStats = body.replace('[[','').replace(']]','').split('\", \"');
               var stats = {
-                'title': oneLineStats[0],
+                'title': oneLineStats[0].replace('"','').replace('\\u2018',"'").replace('\\u2019', "'").replace('\\u201C','"').replace('\\u201D','"'),
                 'sent': oneLineStats[1].replace(/\"/g,''),
                 'usersMailed': oneLineStats[2].replace(/\"/g,''),
                 'actions': oneLineStats[3].replace(/\"/g,''),
@@ -40,7 +40,8 @@ module.exports = function (req, res, next) {
               var netNtlPer1000Sent = 1000 * netNtl / stats.sent;
               var unsubRate = 100 * stats.unsubs / stats.sent;
 
-              botPayload.text = 'Stats for <https://act.credoaction.com/report/petition_drilldown/?page_id=' + pageId + '|page ID ' + pageId + '>: "*' + stats.title + '*"\n' + 
+              botPayload.text = 'Stats for <https://act.credoaction.com/report/petition_drilldown/?page_id=' + pageId + '|page ID ' + pageId + '>: "*' + 
+                        stats.title + '*"\n' + 
                         '*Total mails sent:* ' + stats.sent + '\n' +
                         '*Total users mailed:* ' + stats.usersMailed + '\n' +
                         '*Users mailed more than once:* ' + kickedTo + '\n' +

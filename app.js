@@ -5,7 +5,7 @@ var dicebot = require('./dicebot');
 var bucketsizebot = require('./bucketsize');
 var mailingdmbot = require('./mailing-dm');
 var mailingbot = require('./mailingbot');
-var pagebot = require('./pagebot');
+var petitionbot = require('./petitionbot');
 
 var app = express();
 var port = process.env.PORT || 3000;
@@ -33,7 +33,7 @@ app.post('/mailing-dm', mailingdmbot);
 app.post('/mailing', mailingbot);
 
 // pagebot
-app.post('/page', pagebot);
+app.post('/petition', petitionbot);
 
 // basic error handler
 app.use(function (err, req, res, next) {
