@@ -50,7 +50,7 @@ module.exports = function (req, res, next) {
 
               botPayload.text = 'Stats for mailing ID ' + mailingId + ': "*' + stats.subjectLine + '*"\n' + 
                         '_' + stats.notes + '_\n' +
-                        '*Sent on:* ' + stats.date + ' to ' + stats.sent + '\n' +
+                        '*Sent on:* ' + stats.date + ' to ' + formatNumber(stats.sent) + '\n' +
                         '*Open rate:* ' + openRate.toFixed(2) + '%\n' +
                         '*CPO:* ' + cpo.toFixed(2) + '%\n' +
                         '*Action rate:* ' + actionRate.toFixed(2) + '%\n' +
@@ -110,4 +110,8 @@ function send (payload, callback) {
 
     callback(null, response.statusCode, body);
   });
+}
+
+var formatNumber = function (num) {
+    return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
 }

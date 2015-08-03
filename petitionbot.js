@@ -42,12 +42,12 @@ module.exports = function (req, res, next) {
 
               botPayload.text = 'Stats for <https://act.credoaction.com/report/petition_drilldown/?page_id=' + pageId + '|page ID ' + pageId + '>: "*' + 
                         stats.title + '*"\n' + 
-                        '*Total mails sent:* ' + stats.sent + '\n' +
-                        '*Total users mailed:* ' + stats.usersMailed + '\n' +
-                        '*Users mailed more than once:* ' + kickedTo + '\n' +
+                        '*Total mails sent:* ' + formatNumber(stats.sent) + '\n' +
+                        '*Total users mailed:* ' + formatNumber(stats.usersMailed) + '\n' +
+                        '*Users mailed more than once:* ' + formatNumber(kickedTo) + '\n' +
                         '*Action rate:* ' + actionRate.toFixed(2) + '%\n' +
                         '*NTL / mailed:* ' + ntlRate.toFixed(2) + '%\n' +
-                        '*Net NTL per 1K sent:* ' + netNtlPer1000Sent.toFixed(2) + ' (' + netNtl + ' NTL)\n' +
+                        '*Net NTL per 1K sent:* ' + netNtlPer1000Sent.toFixed(2) + ' (' + formatNumber(netNtl) + ' NTL)\n' +
                         '*Unsub rate:* ' + unsubRate.toFixed(2) + '%\n' 
                        ;
 
@@ -102,4 +102,8 @@ function send (payload, callback) {
 
     callback(null, response.statusCode, body);
   });
+}
+
+var formatNumber = function (num) {
+    return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
 }
