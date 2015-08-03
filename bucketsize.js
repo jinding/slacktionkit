@@ -11,7 +11,7 @@ module.exports = function (req, res, next) {
           auth: { user: 'meteor', pass: 'dingbergalis' },
           qs: {
                 'tag': bucket,
-                'cache_duration': '86400' // set cache to 1 day
+                'cache_duration': '604800' // set cache to 1 week
               },
           method: 'POST', //Specify the method
           headers: {
