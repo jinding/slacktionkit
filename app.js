@@ -3,8 +3,8 @@ var bodyParser = require('body-parser');
 var hellobot = require('./hellobot');
 var dicebot = require('./dicebot');
 var bucketsizebot = require('./bucketsize');
-var mailingbot = require('./mailing');
-var actionkitbot = require('./actionkit');
+var mailingdmbot = require('./mailing-dm');
+var mailingbot = require('./mailingbot');
 
 var app = express();
 var port = process.env.PORT || 3000;
@@ -26,10 +26,10 @@ app.post('/roll', dicebot);
 app.post('/bucket', bucketsizebot);
 
 // mailingbot
-app.post('/mailing', mailingbot);
+app.post('/mailing-dm', mailingdmbot);
 
-// acitonkitbog
-app.post('/actionkit', actionkitbot);
+// mailingbot
+app.post('/mailing', mailingbot);
 
 // basic error handler
 app.use(function (err, req, res, next) {
