@@ -1,3 +1,5 @@
+/* post top line mailing stats to the channel from actionkit using /mailing slash command */
+
 var request = require('request');
 var querystring = require('querystring');
 
