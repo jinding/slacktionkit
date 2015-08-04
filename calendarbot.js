@@ -50,7 +50,8 @@ module.exports = function (req, res, next) {
                 console.log('limit ' + fields.limit);
                 console.log('mailsPerSecond ' + fields.mailsPerSecond);
 
-                var fallback = 'Priority ' + fields.excludeOrdering + ': ' + fields.subject + ' (' + fields.mailingId + ')\n' +
+                var priority = (fields.excludeOrdering !== 'DOUBLEHIT' ? 'Priority ' : '');
+                var fallback = priority + fields.excludeOrdering + ': ' + fields.subject + ' (' + fields.mailingId + ')\n' +
                               fields.notes + '\n' +
                               'scheduledFor ' + fields.scheduledFor ? fields.scheduledFor : 'NOT ON TIMER' + '\n' +
                               'expectedSendCount ' + formatNumber(fields.expectedSendCount);
@@ -58,7 +59,7 @@ module.exports = function (req, res, next) {
                 attachments.push({
                   'fallback': fallback,
                   'color': '#005b6e',
-                  'pretext': 'Priority ' + fields.excludeOrdering,
+                  'pretext': priority + fields.excludeOrdering,
                   'title': fields.subject + ' (' + fields.mailingId + ')',
                   'title_link': 'https://act.credoaction.com/mailings/drafts/' + fields.mailingId,
                   'text': fields.notes,
