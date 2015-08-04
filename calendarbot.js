@@ -89,7 +89,7 @@ module.exports = function (req, res, next) {
               };
 
               botPayload.username = 'actionkit';
-              botPayload.channel = req.body.channel_id;
+              botPayload.channel = '#email-calendar';
               botPayload.attachments = attachments;
               botPayload.link_names = 1;
 
