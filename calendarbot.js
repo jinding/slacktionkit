@@ -24,11 +24,8 @@ module.exports = function (req, res, next) {
       }, function(error, response, body){
           if (response && response.statusCode && response.statusCode == 200) {
               console.log('no errors ' + response.statusCode + ' ' + body);
-              var reportResponse = JSON.parse(body);
-              console.log(reportResponse);
-              
+              var reportResponse = JSON.parse(body);              
               var attachments = [];
-              console.log('length ' + reportResponse.length);
 
               for (var i=0; i < reportResponse.length; i++) {
                 var fields = {
@@ -56,7 +53,7 @@ module.exports = function (req, res, next) {
                 var fallback = 'Priority ' + fields.excludeOrdering + ': ' + fields.subject + ' (' + fields.mailingId + ')\n' +
                               fields.notes + '\n' +
                               'scheduledFor ' + fields.scheduledFor + '\n' +
-                              'expectedSendCount ' + fields.expectedSendCount;
+                              'expectedSendCount ' + formatNumber(fields.expectedSendCount);
                 
                 attachments.push({
                   'fallback': fallback,
@@ -68,7 +65,7 @@ module.exports = function (req, res, next) {
                   'fields': [
                       {
                         'title': 'Count',
-                        'value': fields.expectedSendCount,
+                        'value': formatNumber(fields.expectedSendCount),
                         'short': true
                       },
                       {
