@@ -40,7 +40,8 @@ module.exports = function (req, res, next) {
               var netNtlPer1000Sent = 1000 * netNtl / stats.sent;
               var unsubRate = 100 * stats.unsubs / stats.sent;
 
-              botPayload.text = 'Stats for <https://act.credoaction.com/report/petition_drilldown/?page_id=' + pageId + '|page ID ' + pageId + '>: "*' + 
+              var fallback = 
+                        '@' + req.body.user_name + 'Stats for <https://act.credoaction.com/report/petition_drilldown/?page_id=' + pageId + '|page ID ' + pageId + '>: "*' + 
                         stats.title + '*"\n' + 
                         '*Total mails sent:* ' + formatNumber(stats.sent) + '\n' +
                         '*Total users mailed:* ' + formatNumber(stats.usersMailed) + '\n' +
@@ -51,10 +52,64 @@ module.exports = function (req, res, next) {
                         '*Unsub rate:* ' + unsubRate.toFixed(2) + '%\n' 
                        ;
 
-              console.log(botPayload.text);
+              console.log(fallback);
 
               botPayload.username = 'actionkit';
               botPayload.channel = req.body.channel_id;
+              botPayload.attachments = [ {
+                   "fallback": fallback,
+
+                    "color": "#005b6e",
+
+                    "pretext": "@" + req.body.user_name + " Stats for petition ID " + pageId,
+
+                    "title": stats.title,
+                    "title_link": 'https://act.credoaction.com/report/petition_drilldown/?page_id=' + pageId,
+
+                    "fields": [
+                        {
+                            "title": "Total mails sent",
+                            "value": formatNumber(stats.sent),
+                            "short": true
+                        },
+                        {
+                            "title": "Action rate",
+                            "value": actionRate.toFixed(2) + '%',
+                            "short": true
+                        },
+                        {
+                            "title": "Total users mailed",
+                            "value": formatNumber(stats.usersMailed),
+                            "short": true
+                        },
+                        {
+                            "title": "NTL / mailed",
+                            "value": ntlRate.toFixed(2) + '%',
+                            "short": true
+                        },
+                        {
+                            "title": "Users mailed more than once",
+                            "value": formatNumber(kickedTo),
+                            "short": true
+                        },
+                        {
+                            "title": "Net NTL / 1K sent",
+                            "value": netNtlPer1000Sent.toFixed(2) + '%',
+                            "short": true
+                        },
+                        {
+                            "title": "Net NTL",
+                            "value": formatNumber(netNtl),
+                            "short": true
+                        },
+                        {
+                            "title": "Unsub rate",
+                            "value": unsubRate.toFixed(2) + '%',
+                            "short": true
+                        }
+                    ]
+                }];
+              botPayload.link_names = 1;
 
               // send results
               send(botPayload, function (error, status, body) {
