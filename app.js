@@ -6,6 +6,7 @@ var bucketsizebot = require('./bucketsize');
 var mailingdmbot = require('./mailing-dm');
 var mailingbot = require('./mailingbot');
 var petitionbot = require('./petitionbot');
+var calendarbot = require('./calendarbot');
 
 var app = express();
 var port = process.env.PORT || 3000;
@@ -34,6 +35,9 @@ app.post('/mailing', mailingbot);
 
 // pagebot
 app.post('/petition', petitionbot);
+
+// pagebot
+app.post('/calendar', calendarbot);
 
 // basic error handler
 app.use(function (err, req, res, next) {
