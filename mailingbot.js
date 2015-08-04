@@ -48,7 +48,7 @@ module.exports = function (req, res, next) {
 
 
 
-              botPayload.text = 'Stats for mailing ID ' + mailingId + ': "*' + stats.subjectLine + '*"\n' + 
+              var fallback = '@' + req.body.user_name + 'Stats for mailing ID ' + mailingId + ': "*' + stats.subjectLine + '*"\n' + 
                         '_' + stats.notes + '_\n' +
                         '*Sent on:* ' + stats.date + ' to ' + formatNumber(stats.sent) + '\n' +
                         '*Open rate:* ' + openRate.toFixed(2) + '%\n' +
@@ -59,10 +59,66 @@ module.exports = function (req, res, next) {
                         '*Spam rate:* ' + spamRate.toFixed(2) + '%'
                        ;
 
-              console.log(botPayload.text);
+              console.log(fallback);
 
               botPayload.username = 'actionkit';
               botPayload.channel = req.body.channel_id;
+
+              botPayload.attachments = [ {
+                   "fallback": fallback,
+
+                    "color": "#005b6e",
+
+                    "pretext": "@" + req.body.user_name + " Stats for mailing ID " + mailingId,
+
+                    "title": stats.subjectLine,
+                    "title_link": 'https://act.credoaction.com/report/mailing_drilldown/?mailing_id=' + mailingId,
+                    "text": stats.notes,
+
+                    "fields": [
+                        {
+                            "title": "Sent",
+                            "value": stats.date + ' to ' + formatNumber(stats.sent),
+                            "short": true
+                        },
+                        {
+                            "title": "Open rate",
+                            "value": openRate.toFixed(2) + '%',
+                            "short": true
+                        },
+                        {
+                            "title": "Net NTL",
+                            "value": formatNumber(netNtl),
+                            "short": true
+                        },
+                        {
+                            "title": "CPO",
+                            "value": cpo.toFixed(2) + '%',
+                            "short": true
+                        },
+                        {
+                            "title": "Unsub rate",
+                            "value": unsubRate.toFixed(2) + '%',
+                            "short": true
+                        },
+                        {
+                            "title": "Action rate",
+                            "value": actionRate.toFixed(2) + '%',
+                            "short": true
+                        },
+                        {
+                            "title": "Spam rate",
+                            "value": spamRate.toFixed(2) + '%',
+                            "short": true
+                        },
+                        {
+                            "title": "Net NTL / 1K sent",
+                            "value": netNtlPer1000Sent.toFixed(2) + '%',
+                            "short": true
+                        }
+                    ]
+                }];
+              botPayload.link_names = 1;
 
               // send results
               send(botPayload, function (error, status, body) {
