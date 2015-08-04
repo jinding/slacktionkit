@@ -40,16 +40,6 @@ module.exports = function (req, res, next) {
                   'mailsPerSecond': reportResponse[i][8]
                 };
 
-                console.log('mailingId ' + fields.mailingId);
-                console.log('subject ' + fields.subject);
-                console.log('notes ' + fields.notes);
-                console.log('priority ' + fields.excludeOrdering);
-                console.log('scheduledFor ' + fields.scheduledFor ? fields.scheduledFor : 'NOT ON TIMER');
-                console.log('expectedSendCount ' + fields.expectedSendCount);
-                console.log('sortBy ' + fields.sortBy);
-                console.log('limit ' + fields.limit);
-                console.log('mailsPerSecond ' + fields.mailsPerSecond);
-
                 var priority = (fields.excludeOrdering !== 'DOUBLEHIT' ? 'Priority ' : '');
                 var fallback = priority + fields.excludeOrdering + ': ' + fields.subject + ' (' + fields.mailingId + ')\n' +
                               fields.notes + '\n' +
@@ -58,7 +48,7 @@ module.exports = function (req, res, next) {
                 
                 attachments.push({
                   'fallback': fallback,
-                  'color': '#005b6e',
+                  'color': (fields.excludeOrdering !== 'DOUBLEHIT' ? '#005c6f' : '#f4642f'),
                   'pretext': priority + fields.excludeOrdering,
                   'title': fields.subject + ' (' + fields.mailingId + ')',
                   'title_link': 'https://act.credoaction.com/mailings/drafts/' + fields.mailingId,
@@ -73,17 +63,7 @@ module.exports = function (req, res, next) {
                         'title': 'On the timer',
                         'value': fields.scheduledFor ? fields.scheduledFor : 'NO',
                         'short': true
-                      } /* ,
-                      {
-                        'title': 'Sort',
-                        'value': fields.sortBy,
-                        'short': true
-                      },
-                      {
-                        'title': 'Rate limit',
-                        'value': fields.mailsPerSecond,
-                        'short': true
-                      } */
+                      }
                   ]
                 })
               };
