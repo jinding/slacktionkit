@@ -44,7 +44,7 @@ module.exports = function (req, res, next) {
                 console.log('subject ' + fields.subject);
                 console.log('notes ' + fields.notes);
                 console.log('priority ' + fields.excludeOrdering);
-                console.log('scheduledFor ' + fields.scheduledFor);
+                console.log('scheduledFor ' + fields.scheduledFor ? fields.scheduledFor : 'NOT ON TIMER');
                 console.log('expectedSendCount ' + fields.expectedSendCount);
                 console.log('sortBy ' + fields.sortBy);
                 console.log('limit ' + fields.limit);
@@ -52,7 +52,7 @@ module.exports = function (req, res, next) {
 
                 var fallback = 'Priority ' + fields.excludeOrdering + ': ' + fields.subject + ' (' + fields.mailingId + ')\n' +
                               fields.notes + '\n' +
-                              'scheduledFor ' + fields.scheduledFor + '\n' +
+                              'scheduledFor ' + fields.scheduledFor ? fields.scheduledFor : 'NOT ON TIMER' + '\n' +
                               'expectedSendCount ' + formatNumber(fields.expectedSendCount);
                 
                 attachments.push({
@@ -70,7 +70,7 @@ module.exports = function (req, res, next) {
                       },
                       {
                         'title': 'On the timer',
-                        'value': fields.scheduledFor,
+                        'value': fields.scheduledFor ? fields.scheduledFor : 'NO',
                         'short': true
                       } /* ,
                       {
