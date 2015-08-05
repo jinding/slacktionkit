@@ -40,16 +40,20 @@ module.exports = function (req, res, next) {
                   'mailsPerSecond': reportResponse[i][8]
                 };
 
+                if (i==0)
+                  var firstLine = 'Email calendar for ' + requestDate + ':\n';
+                else var firstLine = '';
+
                 var priority = (fields.excludeOrdering !== 'DOUBLEHIT' ? 'Priority ' : '');
-                var fallback = priority + fields.excludeOrdering + ': ' + fields.subject + ' (' + fields.mailingId + ')\n' +
+                var fallback = firstLine + priority + fields.excludeOrdering + ': ' + fields.subject + ' (' + fields.mailingId + ')\n' +
                               fields.notes + '\n' +
                               'scheduledFor ' + fields.scheduledFor ? fields.scheduledFor : 'NOT ON TIMER' + '\n' +
                               'expectedSendCount ' + formatNumber(fields.expectedSendCount);
                 
                 attachments.push({
                   'fallback': fallback,
-                  'color': (fields.excludeOrdering !== 'DOUBLEHIT' ? '#005c6f' : '#f4642f'),
-                  'pretext': priority + fields.excludeOrdering,
+                  'color': (fields.scheduledFor ? 'good' : 'danger'),
+                  'pretext': firstLine + priority + fields.excludeOrdering,
                   'title': fields.subject + ' (' + fields.mailingId + ')',
                   'title_link': 'https://act.credoaction.com/mailings/drafts/' + fields.mailingId,
                   'text': fields.notes,
