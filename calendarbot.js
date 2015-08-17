@@ -80,6 +80,9 @@ module.exports = function (req, res, next) {
               botPayload.channel = req.body.channel_id;
               botPayload.attachments = attachments;
               botPayload.link_names = 1;
+              if (reportResponse.length == 0 ) {
+                botPayload.text = 'No mailings are on the calendar for ' + requestDate;
+              }
 
               // send results
               send(botPayload, function (error, status, body) {
