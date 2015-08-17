@@ -40,7 +40,8 @@ module.exports = function (req, res, next) {
                   'expectedSendCount': reportResponse[i][5],
                   'sortBy': reportResponse[i][6],
                   'limit': reportResponse[i][7],
-                  'mailsPerSecond': reportResponse[i][8]
+                  'mailsPerSecond': reportResponse[i][8],
+                  'sender': reportResponse[i][9]
                 };
 
                 if (i==0)
