@@ -1,3 +1,5 @@
+/* based off of http://www.sitepoint.com/getting-started-slack-bots/ */
+
 var express = require('express');
 var bodyParser = require('body-parser');
 var bucketsizebot = require('./bucketsize');
@@ -5,6 +7,7 @@ var mailingdmbot = require('./mailing-dm');
 var mailingbot = require('./mailingbot');
 var petitionbot = require('./petitionbot');
 var calendarbot = require('./calendarbot');
+var timerbot = require('./timerbot');
 
 var app = express();
 var port = process.env.PORT || 3000;
@@ -19,17 +22,20 @@ app.get('/', function (req, res) { res.status(200).send('Hello world!') });
 // bucketsizebot
 app.post('/bucket', bucketsizebot);
 
-// mailingbot
+// mailingdmbot
 app.post('/mailing-dm', mailingdmbot);
 
 // mailingbot
 app.post('/mailing', mailingbot);
 
-// pagebot
+// petitionbot
 app.post('/petition', petitionbot);
 
-// pagebot
+// calendarbot
 app.post('/calendar', calendarbot);
+
+// timerbot
+app.post('/timer', timerbot);
 
 // basic error handler
 app.use(function (err, req, res, next) {
