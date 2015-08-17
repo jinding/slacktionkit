@@ -78,7 +78,7 @@ module.exports = function (req, res, next) {
               botPayload.attachments = attachments;
               botPayload.link_names = 1;
               if (reportResponse.length == 0 ) {
-                botPayload.text = 'All mailings are on the timer!';
+                botPayload.text = 'All mailings for ' + requestDate + ' are on the timer!';
               }
 
               // send results
