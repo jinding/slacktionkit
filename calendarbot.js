@@ -1,4 +1,7 @@
-/* post topline page stats to the channel from actionkit using /page slash command */
+/* 
+  post email calendar for a given date to the channel from actionkit using /calendar slash command
+  curl -X POST http://localhost:3000/calendar --data "user_name=jin&token=zEYJqJLFFdnoRIsd9VGw3Ogm&text=2015-08-13"
+*/
 
 var request = require('request');
 var querystring = require('querystring');
@@ -30,7 +33,7 @@ module.exports = function (req, res, next) {
               for (var i=0; i < reportResponse.length; i++) {
                 var fields = {
                   'mailingId': reportResponse[i][0],
-                  'subject': reportResponse[i][1],
+                  'subject': reportResponse[i][1].replace('\\u2018',"'").replace('\\u2019', "'").replace('\\u201C','"').replace('\\u201D','"'),
                   'notes': reportResponse[i][2],
                   'excludeOrdering': reportResponse[i][3],
                   'scheduledFor': reportResponse[i][4],

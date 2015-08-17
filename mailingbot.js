@@ -1,4 +1,7 @@
-/* post top line mailing stats to the channel from actionkit using /mailing slash command */
+/* 
+  post top line mailing stats to the channel from actionkit using /mailing slash command
+  curl -X POST http://localhost:3000/mailing --data "user_name=jin&token=1jRCHaci09PoI5nuZi7LbKt9&text=15274"  
+*/
 
 var request = require('request');
 var querystring = require('querystring');
@@ -27,7 +30,7 @@ module.exports = function (req, res, next) {
               var oneLineStats = body.replace('[[','').replace(']]','').split('\", \"');
               var stats = {
                 'date': oneLineStats[0].replace(/\"/g,''),
-                'subjectLine': oneLineStats[1],
+                'subjectLine': oneLineStats[1].replace('\\u2018',"'").replace('\\u2019', "'").replace('\\u201C','"').replace('\\u201D','"'),
                 'notes': oneLineStats[2],
                 'sent': oneLineStats[3].replace(/\"/g,''),
                 'opens': oneLineStats[4].replace(/\"/g,''),

@@ -1,4 +1,7 @@
-/* post topline page stats to the channel from actionkit using /page slash command */
+/* 
+  post topline page stats to the channel from actionkit using /petition slash command 
+  curl -X POST http://localhost:3000/petition --data "user_name=jin&token=4xwsZfWgV3P1xq5DcgFZDahH&text=10109"  
+*/
 
 var request = require('request');
 var querystring = require('querystring');
