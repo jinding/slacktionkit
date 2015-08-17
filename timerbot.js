@@ -29,6 +29,7 @@ module.exports = function (req, res, next) {
               console.log('no errors ' + response.statusCode + ' ' + body);
               var reportResponse = JSON.parse(body);              
               var attachments = [];
+              var firstLine = '';
 
               for (var i=0; i < reportResponse.length; i++) {
                 var fields = {
@@ -41,8 +42,8 @@ module.exports = function (req, res, next) {
                 };
 
                 if (i==0)
-                  var firstLine = 'Timer reminders for ' + requestDate + ':\n';
-                else var firstLine = '';
+                  firstLine = 'Timer reminders for ' + requestDate + ':\n';
+                else firstLine = '';
 
                 var priority = (fields.excludeOrdering !== 'DOUBLEHIT' ? 'Priority ' : '');
                 var fallback = firstLine + priority + fields.excludeOrdering + ': ' + fields.subject + ' (' + fields.mailingId + ')\n' +
@@ -76,6 +77,9 @@ module.exports = function (req, res, next) {
               botPayload.channel = req.body.channel_id;
               botPayload.attachments = attachments;
               botPayload.link_names = 1;
+              if (reportResponse.length == 0 ) {
+                botPayload.text = 'All mailings are on the timer!';
+              }
 
               // send results
               send(botPayload, function (error, status, body) {
