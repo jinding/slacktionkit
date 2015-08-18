@@ -27,19 +27,20 @@ module.exports = function (req, res, next) {
       }, function(error, response, body){
           if (response && response.statusCode && response.statusCode == 200) {
               console.log('no errors ' + response.statusCode + ' ' + body);
-              var oneLineStats = body.replace('[[','').replace(']]','').split('\", \"');
+
+              var oneLineStats = JSON.parse(body);              
               var stats = {
-                'date': oneLineStats[0].replace(/\"/g,''),
-                'subjectLine': oneLineStats[1].replace('\\u2018',"'").replace('\\u2019', "'").replace('\\u201C','"').replace('\\u201D','"'),
-                'notes': oneLineStats[2],
-                'sent': oneLineStats[3].replace(/\"/g,''),
-                'opens': oneLineStats[4].replace(/\"/g,''),
-                'clicks': oneLineStats[5].replace(/\"/g,''),
-                'unsubs_all': oneLineStats[6].replace(/\"/g,''),
-                'unsubs_bounce': oneLineStats[7].replace(/\"/g,''),
-                'unsubs_spam': oneLineStats[8].replace(/\"/g,''),
-                'actions': oneLineStats[9].replace(/\"/g,''),
-                'ntl': oneLineStats[10].replace(/\"/g,'')
+                'date': oneLineStats[0][0],
+                'subjectLine': oneLineStats[0][1].replace('\\u2018',"'").replace('\\u2019', "'").replace('\\u201C','"').replace('\\u201D','"'),
+                'notes': oneLineStats[0][2],
+                'sent': oneLineStats[0][3],
+                'opens': oneLineStats[0][4],
+                'clicks': oneLineStats[0][5],
+                'unsubs_all': oneLineStats[0][6],
+                'unsubs_bounce': oneLineStats[0][7],
+                'unsubs_spam': oneLineStats[0][8],
+                'actions': oneLineStats[0][9],
+                'ntl': oneLineStats[0][10]
               }
               var openRate = 100*stats.opens/stats.sent;
               var cpo = 100*stats.clicks/stats.opens;
@@ -51,7 +52,7 @@ module.exports = function (req, res, next) {
 
 
 
-              var fallback = '@' + req.body.user_name + 'Stats for mailing ID ' + mailingId + ': "*' + stats.subjectLine + '*"\n' + 
+              var fallback = '@' + req.body.user_name + ' Stats for mailing ID ' + mailingId + ': "*' + stats.subjectLine + '*"\n' + 
                         '_' + stats.notes + '_\n' +
                         '*Sent on:* ' + stats.date + ' to ' + formatNumber(stats.sent) + '\n' +
                         '*Open rate:* ' + openRate.toFixed(2) + '%\n' +
