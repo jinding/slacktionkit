@@ -27,14 +27,14 @@ module.exports = function (req, res, next) {
       }, function(error, response, body){
           if (response && response.statusCode && response.statusCode == 200) {
               console.log('no errors ' + response.statusCode + ' ' + body);
-              var oneLineStats = body.replace('[[','').replace(']]','').split('\", \"');
+              var oneLineStats = JSON.parse(body);              
               var stats = {
-                'title': oneLineStats[0].replace('"','').replace('\\u2018',"'").replace('\\u2019', "'").replace('\\u201C','"').replace('\\u201D','"'),
-                'sent': oneLineStats[1].replace(/\"/g,''),
-                'usersMailed': oneLineStats[2].replace(/\"/g,''),
-                'actions': oneLineStats[3].replace(/\"/g,''),
-                'ntl': oneLineStats[4].replace(/\"/g,''),
-                'unsubs': oneLineStats[5].replace(/\"/g,'')
+                'title': oneLineStats[0][0].replace('\\u2018',"'").replace('\\u2019', "'").replace('\\u201C','"').replace('\\u201D','"'),
+                'sent': oneLineStats[0][1],
+                'usersMailed': oneLineStats[0][2],
+                'actions': oneLineStats[0][3],
+                'ntl': oneLineStats[0][4],
+                'unsubs': oneLineStats[0][5]
               };
               var kickedTo = stats.sent - stats.usersMailed;
               var actionRate = 100 * stats.actions / stats.sent;
@@ -44,7 +44,7 @@ module.exports = function (req, res, next) {
               var unsubRate = 100 * stats.unsubs / stats.sent;
 
               var fallback = 
-                        '@' + req.body.user_name + 'Stats for <https://act.credoaction.com/report/petition_drilldown/?page_id=' + pageId + '|page ID ' + pageId + '>: "*' + 
+                        '@' + req.body.user_name + ' Stats for <https://act.credoaction.com/report/petition_drilldown/?page_id=' + pageId + '|page ID ' + pageId + '>: "*' + 
                         stats.title + '*"\n' + 
                         '*Total mails sent:* ' + formatNumber(stats.sent) + '\n' +
                         '*Total users mailed:* ' + formatNumber(stats.usersMailed) + '\n' +
