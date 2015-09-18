@@ -15,7 +15,7 @@ module.exports = function (req, res, next) {
     if (pageId) {
       request({
           url: 'https://act.credoaction.com/rest/v1/report/run/page_top_line_stats_slack/',
-          auth: { user: 'meteor', pass: 'dingbergalis' },
+          auth: { user: 'meteor', pass: 'CSFrK6VDee?u&?nf' },
           qs: {
                 'page_id': pageId,
                 'cache_duration': '600' // set cache to 10 min

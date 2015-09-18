@@ -8,7 +8,7 @@ module.exports = function (req, res, next) {
     if (bucket) {
       request({
           url: 'https://act.credoaction.com/rest/v1/report/run/list_issue_group_size_specific/',
-          auth: { user: 'meteor', pass: 'dingbergalis' },
+          auth: { user: 'meteor', pass: 'CSFrK6VDee?u&?nf' },
           qs: {
                 'tag': bucket,
                 'cache_duration': '604800' // set cache to 1 week

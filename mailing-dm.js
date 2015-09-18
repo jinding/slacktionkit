@@ -8,7 +8,7 @@ module.exports = function (req, res, next) {
     if (mailingId) {
       request({
           url: 'https://act.credoaction.com/rest/v1/report/run/mailings_one_line_stats_ids_slack/',
-          auth: { user: 'meteor', pass: 'dingbergalis' },
+          auth: { user: 'meteor', pass: 'CSFrK6VDee?u&?nf' },
           qs: {
                 'mailing_id': mailingId,
                 'cache_duration': '600' // set cache to 10 min
