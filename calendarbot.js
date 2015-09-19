@@ -15,7 +15,7 @@ module.exports = function (req, res, next) {
     if (requestDate) {
       request({
           url: 'https://act.credoaction.com/rest/v1/report/run/mailings_calendar_given_date_slack/',
-          auth: { user: 'meteor', pass: 'CSFrK6VDee?u&?nf' },
+          auth: { user: 'meteor', pass: process.env.AK_PASS },
           qs: {
                 'date': requestDate,
                 'cache_duration': '60' // set cache to 1 min
