@@ -111,12 +111,9 @@ module.exports = function (req, res, next) {
   }
 }
 
-function send (payload, callback) {
-/*  
+function send (payload, callback) { 
   var path = process.env.INCOMING_WEBHOOK_PATH; // set in heroku config vars under settings
   var uri = 'https://hooks.slack.com/services' + path;
-*/
-  var uri = 'https://hooks.slack.com/services/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';
 
   request({
     uri: uri,

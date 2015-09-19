@@ -15,7 +15,7 @@ module.exports = function (req, res, next) {
     if (mailingId) {
       request({
           url: 'https://act.credoaction.com/rest/v1/report/run/mailings_one_line_stats_ids_slack/',
-          auth: { user: 'meteor', pass: 'CSFrK6VDee?u&?nf' },
+          auth: { user: 'meteor', pass: process.env.AK_PASS },
           qs: {
                 'mailing_id': mailingId,
                 'cache_duration': '600' // set cache to 10 min
@@ -153,11 +153,9 @@ module.exports = function (req, res, next) {
 }
 
 function send (payload, callback) {
-/*  
+ 
   var path = process.env.INCOMING_WEBHOOK_PATH;
   var uri = 'https://hooks.slack.com/services' + path;
-*/
-  var uri = 'https://hooks.slack.com/services/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';
 
   request({
     uri: uri,
