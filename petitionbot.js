@@ -1,6 +1,7 @@
 /* 
   post topline page stats to the channel from actionkit using /petition slash command 
   curl -X POST http://localhost:3000/petition --data "user_name=jin&token=4xwsZfWgV3P1xq5DcgFZDahH&text=10109"  
+  INCOMING_WEBHOOK_PATH=/your/path/tokens node app
 */
 
 var request = require('request');

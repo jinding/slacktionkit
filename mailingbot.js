@@ -1,6 +1,7 @@
 /* 
   post top line mailing stats to the channel from actionkit using /mailing slash command
   curl -X POST http://localhost:3000/mailing --data "user_name=jin&token=1jRCHaci09PoI5nuZi7LbKt9&text=15274"  
+  INCOMING_WEBHOOK_PATH=/your/path/tokens node app
 */
 
 var request = require('request');

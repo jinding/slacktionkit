@@ -1,6 +1,7 @@
 /* 
   post unscheduled mailings for a given date to the channel from actionkit using /timer slash command
   curl -X POST http://localhost:3000/timer --data "user_name=jin&token=cVq5pNlL3f76yEBsRxKuGMpP&text=2015-08-15"
+  INCOMING_WEBHOOK_PATH=/your/path/tokens node app
 */
 
 var request = require('request');

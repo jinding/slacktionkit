@@ -1,6 +1,8 @@
 /* 
   post email calendar for a given date to the channel from actionkit using /calendar slash command
   curl -X POST http://localhost:3000/calendar --data "user_name=jin&token=zEYJqJLFFdnoRIsd9VGw3Ogm&text=2015-08-13"
+
+  INCOMING_WEBHOOK_PATH=/your/path/tokens node app
 */
 
 var request = require('request');
