@@ -46,8 +46,19 @@ module.exports = function (req, res, next) {
                   firstLine = 'Timer reminders for ' + requestDate + ':\n';
                 else firstLine = '';
 
+                var slackname = '';
+                switch (fields.sender) {
+                  case 'Becky Bond': slackname = ' - @bbond'; break;
+                  case 'Heidi Hess': slackname = ' - @heidi'; break;
+                  case 'Zack Malitz': slackname = ' - @zackmalitz'; break;
+                  case 'Josh Nelson': slackname = ' - @josh'; break;
+                  case 'Murshed Zaheed': slackname = ' - @murshed'; break;
+                  case 'Elijah Zarlin': slackname = ' - @elijah'; break;
+                  default: slackname = ''; break;
+                }
+
                 var priority = (fields.excludeOrdering !== 'DOUBLEHIT' ? 'Priority ' : '');
-                var fallback = firstLine + priority + fields.excludeOrdering + ': ' + fields.subject + ' (' + fields.mailingId + ')\n' +
+                var fallback = firstLine + priority + fields.excludeOrdering + slackname + ': ' + fields.subject + ' (' + fields.mailingId + ')\n' +
                               fields.notes + '\n' +
                               'NOT ON TIMER ' + fields.sender + '\n' +
                               'expectedSendCount ' + formatNumber(fields.expectedSendCount);
@@ -55,7 +66,7 @@ module.exports = function (req, res, next) {
                 attachments.push({
                   'fallback': fallback,
                   'color': 'danger',
-                  'pretext': firstLine + priority + fields.excludeOrdering,
+                  'pretext': firstLine + priority + fields.excludeOrdering + slackname,
                   'title': fields.subject + ' (' + fields.mailingId + ')',
                   'title_link': 'https://act.credoaction.com/mailings/drafts/' + fields.mailingId,
                   'text': fields.notes,
