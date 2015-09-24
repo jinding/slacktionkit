@@ -48,32 +48,32 @@ module.exports = function (req, res, next) {
 
                 var slackname = '';
                 switch (fields.sender) {
-                  case 'Becky Bond': slackname = '@bbond'; break;
-                  case 'Heidi Hess': slackname = '@heidi'; break;
-                  case 'Zack Malitz': slackname = '@zackmalitz'; break;
-                  case 'Josh Nelson': slackname = '@josh'; break;
-                  case 'Murshed Zaheed': slackname = '@murshed'; break;
-                  case 'Elijah Zarlin': slackname = '@elijah'; break;
-                  default: slackname = fields.sender;
+                  case 'Becky Bond': slackname = '@bbond - '; break;
+                  case 'Heidi Hess': slackname = '@heidi - '; break;
+                  case 'Zack Malitz': slackname = '@zackmalitz - '; break;
+                  case 'Josh Nelson': slackname = '@josh - '; break;
+                  case 'Murshed Zaheed': slackname = '@murshed - '; break;
+                  case 'Elijah Zarlin': slackname = '@elijah - '; break;
+                  default: slackname = '';
                 }
 
                 var priority = (fields.excludeOrdering !== 'DOUBLEHIT' ? 'Priority ' : '');
-                var fallback = firstLine + slackname + ' - ' + priority + fields.excludeOrdering + ': ' + fields.subject + ' (' + fields.mailingId + ')\n' +
+                var fallback = firstLine + slackname + priority + fields.excludeOrdering + ': ' + fields.subject + ' (' + fields.mailingId + ')\n' +
                               fields.notes + '\n' +
-                              'NOT ON TIMER ' + slackname + '\n' +
+                              'NOT ON TIMER ' + fields.sender + '\n' +
                               'expectedSendCount ' + formatNumber(fields.expectedSendCount);
                 
                 attachments.push({
                   'fallback': fallback,
                   'color': 'danger',
-                  'pretext': firstLine + slackname + ' - ' + priority + fields.excludeOrdering,
+                  'pretext': firstLine + slackname + priority + fields.excludeOrdering,
                   'title': fields.subject + ' (' + fields.mailingId + ')',
                   'title_link': 'https://act.credoaction.com/mailings/drafts/' + fields.mailingId,
                   'text': fields.notes,
                   'fields': [
                       {
                         'title': 'Sender',
-                        'value': slackname,
+                        'value': fields.sender,
                         'short': true
                       },
                       {
