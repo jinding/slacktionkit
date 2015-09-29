@@ -13,45 +13,47 @@ module.exports = function (req, res, next) {
   var petitionData = req.body.data;
   var botPayload = {};
 
-  var fallback = 'Title: ' + petitionData.title + '\n' +
-                'URL: ' + petitionData.url + '\n' +
-                'Creator: ' + petitionData.creator_name + '\n' +
-                'Who: ' + petitionData.who + '\n' +
-                'What: ' + petitionData.what + '\n' +
-                'Why: ' + petitionData.why;
+  if (req.body.type == 'petition.launched') {
 
-  console.log(fallback);
+    var fallback = 'Title: ' + petitionData.title + '\n' +
+                  'URL: ' + petitionData.url + '\n' +
+                  'Creator: ' + petitionData.creator_name + '\n' +
+                  'Who: ' + petitionData.who + '\n' +
+                  'What: ' + petitionData.what + '\n' +
+                  'Why: ' + petitionData.why;
 
-  botPayload.username = 'controlshift';
+    console.log(fallback);
 
-  botPayload.attachments = [ {
-    "fallback": fallback,
-    "color": "#005b6e",
-    "pretext": "New petition created!",
-    "title": petitionData.title,
-    "title_link": petitionData.url,
-    "text": 'Creator: ' + petitionData.creator_name + '\n' +
-            'Who: ' + petitionData.who + '\n' +
-            'What: ' + petitionData.what + '\n' +
-            'Why: ' + petitionData.why
-  } ];
+    botPayload.username = 'controlshift';
 
-  botPayload.link_names = 1;
+    botPayload.attachments = [ {
+      "fallback": fallback,
+      "color": "#005b6e",
+      "pretext": "New petition created!",
+      "title": petitionData.title,
+      "title_link": petitionData.url,
+      "text": 'Creator: ' + petitionData.creator_name + '\n' +
+              'Who: ' + petitionData.who + '\n' +
+              'What: ' + petitionData.what + '\n' +
+              'Why: ' + petitionData.why
+    } ];
 
-  // send results
-  send(botPayload, function (error, status, body) {
-    if (error) {
-      return next(error);
+    botPayload.link_names = 1;
 
-    } else if (status !== 200) {
-      // inform user that our Incoming WebHook failed
-      return next(new Error('Incoming WebHook: ' + status + ' ' + body));
+    // send results
+    send(botPayload, function (error, status, body) {
+      if (error) {
+        return next(error);
 
-    } else {
-      return res.status(200).end();
-    }
-  });
+      } else if (status !== 200) {
+        // inform user that our Incoming WebHook failed
+        return next(new Error('Incoming WebHook: ' + status + ' ' + body));
 
+      } else {
+        return res.status(200).end();
+      }
+    });
+  }
 }
 
 function send (payload, callback) { 
