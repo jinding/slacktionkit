@@ -12,7 +12,8 @@ module.exports = function (req, res, next) {
 
   var petitionData = req.body.data;
   console.log(req);
-  console.log(req.body);
+  console.log('req: ' + req.req);
+  console.log('stack: ' + req.stack);
   var botPayload = {};
 
   if (req.body.type == 'petition.launched') {
