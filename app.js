@@ -8,7 +8,7 @@ var mailingbot = require('./mailingbot');
 var petitionbot = require('./petitionbot');
 var calendarbot = require('./calendarbot');
 var timerbot = require('./timerbot');
-var mobilizePetition = require('./mobilize-new-petition');
+var mobilizeNewPetition = require('./mobilizeNewPetition');
 
 var app = express();
 var port = process.env.PORT || 3000;
@@ -39,7 +39,7 @@ app.post('/calendar', calendarbot);
 app.post('/timer', timerbot);
 
 // CONTROLSHIFT - petition launched
-app.post('/mobilize-new-petition', mobilizePetition);
+app.post('/mobilizeNewPetition', mobilizeNewPetition);
 
 // basic error handler
 app.use(function (err, req, res, next) {

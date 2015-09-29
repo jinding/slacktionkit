@@ -33,7 +33,7 @@ module.exports = function (req, res, next) {
     "text": 'Creator: ' + petitionData.creator_name + '\n' +
             'Who: ' + petitionData.who + '\n' +
             'What: ' + petitionData.what + '\n' +
-            'Why: ' + petitionData.why;
+            'Why: ' + petitionData.why
   } ];
 
   botPayload.link_names = 1;
