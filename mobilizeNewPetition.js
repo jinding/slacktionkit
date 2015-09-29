@@ -1,6 +1,6 @@
 /* 
   post email calendar for a given date to the channel from actionkit using /calendar slash command
-  curl -X POST http://localhost:3000/calendar --data "user_name=jin&token=zEYJqJLFFdnoRIsd9VGw3Ogm&text=2015-08-13"
+  curl -X POST http://localhost:3000/mobilizeNewPetition --data "type=petition.launched&data={title=TEST&url=http&creator_name=Jin&who=Obama&what=StopDrilling&why=ItsABadIdea}"
 
   INCOMING_WEBHOOK_PATH=/your/path/tokens node app
 */
