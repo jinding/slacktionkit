@@ -11,6 +11,8 @@ var querystring = require('querystring');
 module.exports = function (req, res, next) {
 
   var petitionData = req.body.data;
+  console.log(req);
+  console.log(req.body);
   var botPayload = {};
 
   if (req.body.type == 'petition.launched') {
