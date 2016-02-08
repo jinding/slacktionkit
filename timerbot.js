@@ -12,7 +12,7 @@ module.exports = function (req, res, next) {
   var requestDate = req.body.text;
   var botPayload = {};
 
-  if (req.body.token === 'cVq5pNlL3f76yEBsRxKuGMpP') { // only proceed if the token matches the one for CREDO Action
+  if (req.body.token === 'ztt8RdeD8PGK0LcorRC4qrhV') { // only proceed if the token matches the one for CREDO Action
     if (requestDate) {
       request({
           url: 'https://act.credoaction.com/rest/v1/report/run/mailings_timer_reminders_given_date_slack/',

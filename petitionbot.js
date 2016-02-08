@@ -12,7 +12,7 @@ module.exports = function (req, res, next) {
   var pageId = req.body.text;
   var botPayload = {};
 
-  if (req.body.token === '4xwsZfWgV3P1xq5DcgFZDahH') { // only proceed if the token matches the one for CREDO Action
+  if (req.body.token === 'e9oTz8iLUllgdBDwfOGvo3TR') { // only proceed if the token matches the one for CREDO Action
     if (pageId) {
       request({
           url: 'https://act.credoaction.com/rest/v1/report/run/page_top_line_stats_slack/',

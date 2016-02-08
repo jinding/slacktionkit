@@ -4,7 +4,7 @@ module.exports = function (req, res, next) {
 
   var bucket = req.body.text;
 
-  if (req.body.token === 'Aj1sX74iobPZSkUMLBf8POMJ') { // only proceed if the token matches the one for CREDO Action
+  if (req.body.token === '3xdIOoInmhB5Wa1H0SuGCl7N') { // only proceed if the token matches the one for CREDO Action
     if (bucket) {
       request({
           url: 'https://act.credoaction.com/rest/v1/report/run/list_issue_group_size_specific/',
