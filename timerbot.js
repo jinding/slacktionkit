@@ -53,6 +53,7 @@ module.exports = function (req, res, next) {
                   case 'Murshed Zaheed': slackname = '@mzaheed - '; break;
                   case 'Nicole Regalado': slackname = '@nregalado - '; break;
                   case 'Tessa Levine': slackname = '@tlevine - '; break;
+                  case 'Brandy Doyle': slackname = '@bdoyle - '; break;
                   default: slackname = '';
                 }
 
