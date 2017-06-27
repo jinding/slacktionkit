@@ -19,7 +19,7 @@ module.exports = function (req, res, next) {
           auth: { user: 'meteor', pass: process.env.AK_PASS },
           qs: {
                 'date': requestDate,
-                'cache_duration': '60' // set cache to 1 min
+                'cache_duration': '0' // set cache to 1 min
               },
           method: 'POST', //Specify the method
           headers: {
